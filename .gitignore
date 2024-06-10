@@ -24,3 +24,5 @@ astro/.DS_Store
 
 # jetbrains setting folder
 astro/.idea/
+
+/.quarto/

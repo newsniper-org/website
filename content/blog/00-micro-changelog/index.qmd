@@ -17,9 +17,9 @@ Press <kbd>/</kbd> or <kbd>CTRL</kbd> + <kbd>K</kbd> to open the search dialog. 
 
 ### Build and develop
 
-<Callout type="error">
+<Callout type="error">  
   The site **must** be built at least once so Pagefind can index the content.
-</Callout>
+</Callout>  
 
 ```bash
 # Pagefind must index the site to function

@@ -14,13 +14,22 @@
   "content/blog/07-draft-example/index.qmd": {
     "index.md": "00147360"
   },
-  "content/projects/project-1/index.qmd": {
+  "content/project/project-1/index.qmd": {
     "index.md": "44c44f6f"
   },
-  "content/projects/project-2/index.qmd": {
+  "content/project/project-2/index.qmd": {
     "index.md": "db655346"
   },
-  "content/projects/project-3/index.qmd": {
+  "content/project/project-3/index.qmd": {
     "index.md": "7ad4d7c0"
+  },
+  "content/blog/01-getting-started/index.qmd": {
+    "index.mdx": "af97027f"
+  },
+  "content/blog/02-blog-collection/index.qmd": {
+    "index.mdx": "e0a1b9d3"
+  },
+  "content/blog/03-projects-collection/index.qmd": {
+    "index.mdx": "6d4cb3a5"
   }
 }

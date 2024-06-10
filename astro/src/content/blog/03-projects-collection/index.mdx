@@ -1,0 +1,118 @@
+---
+title: Projects Collection
+description: How to add projects to your portfolio.
+date: '2024-03-20'
+format: astro-mdx-md
+---
+
+
+
+
+export const quartoRawHtml =
+[`
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 4%" />
+<col style="width: 10%" />
+<col style="width: 69%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Field</th>
+<th style="text-align: left;">Req</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Remarks</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">title</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">Title of the content. Used in SEO and RSS.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">description</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">Description of the content. Used in SEO and RSS.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">date</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">Must be a valid date string (able to be parsed).</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">draft</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">If draft: true, content will not be published.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">demoURL</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">Link to live project demo, if available.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">repoURL</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">Link to project repo, if available.</td>
+</tr>
+</tbody>
+</table>
+`];
+
+------------------------------------------------------------------------
+
+## Working with the `projects` collection
+
+The `projects` collections is found in `src/content/project`.
+
+``` text
+📁 /src/content/project
+└── 📁 project-1
+      └── 📄 index.md
+└── 📁 project-2
+      └── 📄 index.mdx
+```
+
+In the above example, two project posts will be generated with the
+folder name representing the slug.
+
+-   `https://example.com/project/project-1`
+-   `https://example.com/project/project-2`
+
+------------------------------------------------------------------------
+
+## Provide metadata
+
+```astro
+---
+title: "Astro Micro";
+description: "Astro Micro is an accessible theme for Astro.";
+date: "2024-03-20";
+draft: false;
+---
+```
+
+<div dangerouslySetInnerHTML={{ __html: quartoRawHtml[0] }} />
+
+------------------------------------------------------------------------
+
+All that’s left to do is write the content under the metadata.
+
+```astro
+---
+title: "Astro Micro";
+description: "Astro Micro is an accessible theme for Astro";
+date: "2024-03-20";
+draft: false;
+---
+
+## Astro Micro 🔬
+<!-- content -->
+```
