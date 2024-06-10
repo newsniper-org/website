@@ -1,0 +1,26 @@
+{
+  "content/blog/00-micro-changelog/index.qmd": {
+    "index.mdx": "126817b9"
+  },
+  "content/blog/04-markdown-syntax/index.qmd": {
+    "index.mdx": "9ee473d9"
+  },
+  "content/blog/05-mdx-syntax/index.qmd": {
+    "index.mdx": "650035e3"
+  },
+  "content/blog/06-year-sorting-example/index.qmd": {
+    "index.md": "c664ae3c"
+  },
+  "content/blog/07-draft-example/index.qmd": {
+    "index.md": "00147360"
+  },
+  "content/projects/project-1/index.qmd": {
+    "index.md": "44c44f6f"
+  },
+  "content/projects/project-2/index.qmd": {
+    "index.md": "db655346"
+  },
+  "content/projects/project-3/index.qmd": {
+    "index.md": "7ad4d7c0"
+  }
+}

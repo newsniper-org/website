@@ -1,0 +1,9 @@
+project:
+  type: astro
+  output-dir: "astro/src/"
+  resources:
+    - "content/config.ts"
+    - "content/**/**/*.astro"
+    - "content/**/**/*.jpeg"
+
+format: astro-md
