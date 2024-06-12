@@ -1,0 +1,29 @@
+---
+
+import Link from "@components/Link.astro";
+interface Props {
+    type: "category" | "keyword"
+    tag: string
+}
+
+const {type, tag} = Astro.props;
+---
+<Link href={`/${type}/${tag}`}>
+  <div class={`not-prose tag tag-${type}`}>
+      {tag}
+  </div>
+</Link>
+
+<style>
+    .tag {
+      @apply relative my-4 flex rounded border p-3;
+    }
+  
+    .tag-category {
+      @apply border-indigo-800 bg-indigo-100 text-indigo-950 dark:border-indigo-200/20 dark:bg-indigo-950/20 dark:text-indigo-200;
+    }
+
+    .tag-keyword {
+      @apply border-green-800 bg-green-100 text-green-950 dark:border-green-200/20 dark:bg-green-950/20 dark:text-green-200;
+    }
+</style>

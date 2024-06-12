@@ -47,20 +47,7 @@ end
 -- transform 'mdx' into passthrough content, transform 'html'
 -- into raw commamark to pass through via dangerouslySetInnerHTML
 local function RawBlock(el)
-  if el.format == 'mdx' then
-    -- special mdx-code-block is not handled if whitespace is present after backtrick (#8333)
-    return pandoc.RawBlock("markdown", "````mdx-code-block\n" .. el.text .. "\n````")
-  elseif el.format == 'html' then
-    -- track the raw html vars (we'll insert them at the top later on as
-    -- mdx requires all exports be declared together)
-    local html = string.gsub(el.text, "\n+", "\n")
-    rawHtmlVars:insert(html)
-
-    -- generate a div container for the raw html and return it as the block
-    local html = ("<div dangerouslySetInnerHTML={{ __html: %s[%d] }} />")
-      :format(kQuartoRawHtml, #rawHtmlVars-1) .. "\n"
-    return pandoc.RawBlock("html", html)
-  end
+  return pandoc.RawBlock("markdown", el.text)
 end
 
 local function DecoratedCodeBlock(node)

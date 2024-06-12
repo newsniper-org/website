@@ -6,60 +6,79 @@ import ArrowCard from "@components/ArrowCard.astro";
 import Link from "@components/Link.astro";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
+import SeriesArrowCard from "@components/SeriesArrowCard.astro";
 
-const blog = (await getCollection("blog"))
-  .filter((post) => !post.data.draft)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, SITE.NUM_POSTS_ON_HOMEPAGE);
 
-const project: CollectionEntry<"project">[] = (
-  await getCollection("project")
-)
-  .filter((project) => !project.data.draft)
+const allArticles = (await getCollection("article"))
+  .filter((article) => !article.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, SITE.NUM_project_ON_HOMEPAGE);
+const articles = allArticles.slice(0, SITE.NUM_POSTS_ON_HOMEPAGE);
+
+const articlesPerSeries = allArticles.reduce((acc, curr) => {
+  if(curr.data.series) {
+    const gotten = acc.get(curr.data.series)
+    if(gotten === undefined) {
+      acc.set(curr.data.series, [curr])
+    } else {
+      acc.set(curr.data.series, gotten.concat(curr))
+    }
+  }
+  return acc
+},new Map<string, CollectionEntry<"article">[]>)
+
+function* getLatestUpdateDates() {
+  for(let [key, value] of articlesPerSeries) {
+    const latestUpdateDate = value
+      .sort((a,b) => b.data.date.valueOf() - a.data.date.valueOf())[0].data.date
+    yield [key, latestUpdateDate] as [string, Date]
+  }
+}
+
+const latestUpdateDates = new Map(getLatestUpdateDates())
+
+const series = (await getCollection("series"))
+  .filter((eachSeries) => !eachSeries.data.draft)
+  .sort((a,b) => {
+    const a_date = latestUpdateDates.get(a.slug)
+    const b_date = latestUpdateDates.get(b.slug)
+    if(b_date) {
+      if(a_date) {
+        return b_date.valueOf() - a_date.valueOf()
+      } else {
+        return 1;
+      }
+    } else if(latestUpdateDates.get(a.slug)) {
+      return -1;
+    } else {
+      return 0;
+    }
+  })
+  .slice(0, SITE.NUM_PROJECTS_ON_HOMEPAGE)
+  .filter((eachSeries) => latestUpdateDates.has(eachSeries.slug));
 ---
 
 <Layout title={HOME.TITLE} description={HOME.DESCRIPTION}>
   <Container>
     <h1 class="animate font-semibold text-black dark:text-white">
-      Introducing Astro Micro 🔬
+      Introducing 
     </h1>
     <div class="space-y-16">
       <section>
         <article class="space-y-4">
           <span class="animate">
             <p>
-              Astro Micro is an accessible theme for <Link
-                href="https://astro.build/">Astro</Link
-              >. It's a fork of
-              <Link href="https://github.com/markhorn-dev"> Mark Horn's </Link> popular
-              theme <Link href="https://astro.build/themes/details/astronano/"
-                >Astro Nano</Link
-              >. Like Nano, Micro comes with zero frameworks installed.
+              
             </p>
             <p>
-              Micro adds features like <Link href="https://pagefind.app/"
-                >Pagefind</Link
-              > for search, <Link href="https://giscus.app">Giscus</Link> for comments,
-              and more. For a full list of changes, see this <Link
-                href="/blog/00-micro-changelog">blog post</Link
-              >.
+              
             </p>
           </span>
           <span class="animate">
             <p>
-              Micro still comes with everything great about Nano — full type
-              safety, a sitemap, an RSS feed, and Markdown + MDX support. Styled
-              with TailwindCSS and preconfigured with system, light, and dark
-              themes.
+              
             </p>
             <p>
-              Visit
-              <Link href="https://github.com/trevortylerlee/astro-micro">
-                Astro Micro on GitHub
-              </Link>
-              to fork the repository to get started.
+              
             </p>
           </span>
         </article>
@@ -68,13 +87,13 @@ const project: CollectionEntry<"project">[] = (
       <section class="animate space-y-6">
         <div class="flex flex-wrap items-center justify-between gap-y-2">
           <h2 class="font-semibold text-black dark:text-white">Latest posts</h2>
-          <Link href="/blog"> See all posts </Link>
+          <Link href="/blog"> See all articles </Link>
         </div>
         <ul class="not-prose flex flex-col gap-4">
           {
-            blog.map((post) => (
+            articles.map((article) => (
               <li>
-                <ArrowCard entry={post} />
+                <ArrowCard entry={article} />
               </li>
             ))
           }
@@ -84,15 +103,15 @@ const project: CollectionEntry<"project">[] = (
       <section class="animate space-y-6">
         <div class="flex flex-wrap items-center justify-between gap-y-2">
           <h2 class="font-semibold text-black dark:text-white">
-            Recent project
+            Recent series
           </h2>
-          <Link href="/project"> See all project </Link>
+          <Link href="/project"> See all series </Link>
         </div>
         <ul class="not-prose flex flex-col gap-4">
           {
-            project.map((project) => (
+            series.map((eachSeries) => (
               <li>
-                <ArrowCard entry={project} />
+                <SeriesArrowCard entry={eachSeries} />
               </li>
             ))
           }
@@ -100,13 +119,7 @@ const project: CollectionEntry<"project">[] = (
       </section>
 
       <section class="animate space-y-4">
-        <h2 class="font-semibold text-black dark:text-white">Let's Connect</h2>
-        <article>
-          <p>
-            If you want to get in touch with me about something or just to say
-            hi, reach out on social media or send me an email.
-          </p>
-        </article>
+        <h2 class="font-semibold text-black dark:text-white">연락처</h2>
         <ul class="not-prose flex flex-wrap gap-2">
           {
             SOCIALS.map((SOCIAL) => (

@@ -3,15 +3,16 @@ import { type CollectionEntry, getCollection } from "astro:content";
 import Layout from "@layouts/Layout.astro";
 import Container from "@components/Container.astro";
 import FormattedDate from "@components/FormattedDate.astro";
-import { readingTime } from "@lib/utils";
+import { readingTime, maybe } from "@lib/utils";
 import BackToPrevious from "@components/BackToPrevious.astro";
 import PostNavigation from "@components/PostNavigation.astro";
 import TableOfContents from "@components/TableOfContents.astro";
-import Giscus from "@components/Giscus.astro";
 import Talkyard from "@components/Talkyard.astro";
+import Tag from "@components/Tag.astro";
+import { getEntry } from "astro:content";
 
 export async function getStaticPaths() {
-  const posts = (await getCollection("blog"))
+  const posts = (await getCollection("article"))
     .filter((post) => !post.data.draft)
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
   return posts.map((post) => ({
@@ -19,9 +20,9 @@ export async function getStaticPaths() {
     props: post,
   }));
 }
-type Props = CollectionEntry<"blog">;
+type Props = CollectionEntry<"article">;
 
-const posts = await getCollection("blog");
+const posts = await getCollection("article");
 
 function getNextPost() {
   let postIndex;
@@ -47,6 +48,8 @@ const nextPost = getNextPost();
 const prevPost = getPrevPost();
 
 const post = Astro.props;
+
+const series = await maybe(async (ser) => await getEntry("series", ser), post.data.series)
 const { Content, headings } = await post.render();
 ---
 
@@ -68,6 +71,18 @@ const { Content, headings } = await post.render();
       <h1 class="animate text-3xl font-semibold text-black dark:text-white">
         {post.data.title}
       </h1>
+      {
+      post.data.categories.length > 0 && <div style="display: flex">
+        <p>{post.data.categories.length > 1 ? "Categories" : "Category"}</p>
+        {post.data.categories.map((category) => <Tag type="category" tag={category} />)}
+      </div>
+      }
+      {post.data.keywords.length > 0 && <div style="display: flex">
+        <p>{post.data.keywords.length > 1 ? "Keywords" : "Keyword"}</p>
+        {post.data.keywords.map((keyword) => <Tag type="keyword" tag={keyword} />)}
+      </div>
+      }
+      {/* series && */}
     </div>
     <TableOfContents headings={headings} />
     <article class="animate">
@@ -76,7 +91,7 @@ const { Content, headings } = await post.render();
         <PostNavigation prevPost={prevPost} nextPost={nextPost} />
       </div>
       <div class="mt-24">
-        <Talkyard slug={post.slug}/>
+        <Talkyard discussionId={`article/${post.slug}`}/>
       </div>
     </article>
   </Container>

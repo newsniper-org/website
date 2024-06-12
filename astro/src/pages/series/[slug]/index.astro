@@ -1,0 +1,74 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import Layout from "@layouts/Layout.astro";
+import Container from "@components/Container.astro";
+import BackToPrevious from "@components/BackToPrevious.astro";
+import Link from "@components/Link.astro";
+import TableOfContents from "@components/TableOfContents.astro";
+import ArrowCard from "@components/ArrowCard.astro"
+import Talkyard from "@components/Talkyard.astro";
+
+
+export async function getStaticPaths() {
+  const series = (await getCollection("series"))
+    .filter((post) => !post.data.draft)
+    .sort((a, b) => b.data.title.localeCompare(a.data.title));
+  return series.map((eachSeries) => ({
+        params: { slug: eachSeries.slug },
+        props: {
+          ...eachSeries
+        }
+      })
+  );
+}
+type Props = CollectionEntry<"series">;
+
+const series = Astro.props;
+const { Content, headings } = await series.render();
+
+const BannerContent = (await (await getCollection("banner")).find((bnr) => bnr.slug == series.slug)?.render())?.Content
+
+const posts = (await getCollection("article"))
+  .filter((post) => (!post.data.draft) && (post.data.series !== undefined) && (post.data.series == series.slug))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+---
+
+<Layout title={series.data.title} description={series.data.description}>
+  <Container>
+    <div class="animate">
+      <BackToPrevious href="/series">Back to series</BackToPrevious>
+    </div>
+    <div class="animate my-10 space-y-1">
+      <h1 class="text-3xl font-semibold text-black dark:text-white">
+        {series.data.title}
+      </h1>
+    </div>
+    <div class="animate my-10 space-y-1">
+      {BannerContent && <BannerContent />}
+    </div>
+    <TableOfContents headings={headings} />
+    <article class="animate">
+      <Content />
+    </article>
+    {posts.length > 0 && <div class="space-y-10">
+      <div class="space-y-4">
+        <section class="animate space-y-4">
+          <div class="font-semibold text-black dark:text-white">Posts</div>
+          <div>
+            <ul class="not-prose flex flex-col gap-4">
+              {posts.map((post) => (
+                <li>
+                  <ArrowCard entry={post} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      </div>
+    </div>}
+    <div class="mt-24">
+      <Talkyard discussionId={`series/${series.slug}`}/>
+    </div>
+  </Container>
+</Layout>

@@ -1,18 +1,31 @@
 ---
-import type { CollectionEntry } from "astro:content";
+import { MatchMapper } from "@lib/utils";
+import { getCollection, type CollectionEntry } from "astro:content";
 
 type Props = {
-  entry: CollectionEntry<"blog"> | CollectionEntry<"project"> | CollectionEntry<"article">;
+  entry: CollectionEntry<"series">;
+  forIframe?: boolean
 };
 
-const { entry } = Astro.props as {
-  entry: CollectionEntry<"blog"> | CollectionEntry<"project"> | CollectionEntry<"article">;
+const { entry, forIframe = false  } = Astro.props as {
+  entry: CollectionEntry<"series">;
+  forIframe: boolean
 };
+
+const BannerContent = (await (await getCollection("banner")).find((bnr) => bnr.slug == entry.slug)?.render())?.Content
+
+const articles_count = (await getCollection("article")).filter((article) => (article.data.series && article.data.series == entry.slug)).length
+
+const plurality = new MatchMapper((v: number) => `${v} posts`)
+  .addGuard((v) => v <= 0, (v) => "No post yet")
+  .addGuard((v) => v <= 1, (v) => `${v} post`)
+  .map(articles_count)
 ---
 
 <a
-  href={`/${entry.collection}/${entry.slug}`}
+  href={`/series/${entry.slug}`}
   class="not-prose group relative flex flex-nowrap rounded-lg border border-black/15 px-4 py-3 pr-10 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black focus-visible:bg-black/5 focus-visible:text-black dark:border-white/20 dark:hover:bg-white/5 dark:hover:text-white dark:focus-visible:bg-white/5 dark:focus-visible:text-white"
+  style={forIframe ? {width: "100%", height: "100%"} : {}}
 >
   <div class="flex flex-1 flex-col truncate">
     <div class="font-semibold">
@@ -21,6 +34,14 @@ const { entry } = Astro.props as {
     <div class="text-sm">
       {entry.data.description}
     </div>
+    <div class="flex flex-row items-center gap-1.5">
+      <div class="font-base text-sm">
+        {plurality}
+      </div>
+    </div>
+    {entry.data.statusEnabled ? (BannerContent && <div>
+      <BannerContent/>
+    </div>) : <></>}
   </div>
   <svg
     xmlns="http://www.w3.org/2000/svg"

@@ -1,0 +1,25 @@
+---
+import { type CollectionEntry, getCollection, getEntry } from "astro:content";
+import BannerLayout from "@layouts/BannerLayout.astro";
+import Container from "@components/Container.astro";
+import Tag from "@components/Tag.astro";
+
+import { maybe } from "@lib/utils"
+import SeriesArrowCard from "@components/SeriesArrowCard.astro";
+
+export async function getStaticPaths() {
+  const posts = (await getCollection("banner"))
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: post,
+  }));
+}
+type Props = CollectionEntry<"banner">;
+
+const banner = Astro.props;
+
+const series = await maybe(async (bnr) => await getEntry("series", bnr), banner.slug)
+---
+{series ? <BannerLayout title={series.data.title} description={series.data.description}>
+  {series.data.draft ? <p>Not Accessible</p> : <SeriesArrowCard entry={series} forIframe />}
+</BannerLayout> : <p>Not Found</p>}

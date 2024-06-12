@@ -2,15 +2,15 @@
 import { getCollection } from "astro:content";
 import Layout from "@layouts/Layout.astro";
 import Container from "@components/Container.astro";
-import ArrowCard from "@components/ArrowCard.astro";
-import { PROJECTS } from "@consts";
+import SeriesArrowCard from "@components/SeriesArrowCard.astro";
+import { SERIES } from "@consts";
 
-const projects = (await getCollection("projects"))
-  .filter((project) => !project.data.draft)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const series = (await getCollection("series"))
+  .filter((eachSeries) => !eachSeries.data.draft)
+  .sort((a, b) => b.data.title.localeCompare(a.data.title));
 ---
 
-<Layout title={PROJECTS.TITLE} description={PROJECTS.DESCRIPTION}>
+<Layout title={SERIES.TITLE} description={SERIES.DESCRIPTION}>
   <Container>
     <div class="space-y-10">
       <div class="animate font-semibold text-black dark:text-white">
@@ -18,9 +18,9 @@ const projects = (await getCollection("projects"))
       </div>
       <ul class="animate not-prose flex flex-col gap-4">
         {
-          projects.map((project) => (
+          series.map((eachSeries) => (
             <li>
-              <ArrowCard entry={project} />
+              <SeriesArrowCard entry={eachSeries} />
             </li>
           ))
         }

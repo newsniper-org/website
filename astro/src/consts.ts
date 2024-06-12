@@ -1,40 +1,37 @@
 import type { Metadata, Site, Socials } from "@types";
 
 export const SITE: Site = {
-  TITLE: "Astro Micro",
-  DESCRIPTION: "Astro Micro is an accessible and lightweight blog.",
-  EMAIL: "trevortylerlee@gmail.com",
+  TITLE: "NEWSNIPER",
+  DESCRIPTION: "NEWSNIPER 공식 사이트입니다.",
+  EMAIL: "newsniper@protonmail.com",
   NUM_POSTS_ON_HOMEPAGE: 5,
   NUM_PROJECTS_ON_HOMEPAGE: 3,
 };
 
 export const HOME: Metadata = {
-  TITLE: "Home",
+  TITLE: "NEWSNIPER 메인 페이지",
   DESCRIPTION: "Astro Micro is an accessible theme for Astro.",
 };
 
-export const BLOG: Metadata = {
-  TITLE: "Blog",
-  DESCRIPTION: "A collection of articles on topics I am passionate about.",
+export const ARTICLES: Metadata = {
+  TITLE: "게시물",
+  DESCRIPTION:
+    "기사/영상 등 컨텐츠들",
 };
 
-export const PROJECTS: Metadata = {
-  TITLE: "Projects",
+export const SERIES: Metadata = {
+  TITLE: "Series",
   DESCRIPTION:
-    "A collection of my projects with links to repositories and live demos.",
+    "연재 기획",
 };
 
 export const SOCIALS: Socials = [
   {
-    NAME: "X (formerly Twitter)",
-    HREF: "https://twitter.com/boogerbuttcheeks",
+    NAME: "YouTube",
+    HREF: "https://www.youtube.com/@newsniper_ybi",
   },
   {
-    NAME: "GitHub",
-    HREF: "https://github.com/trevortylerlee",
-  },
-  {
-    NAME: "LinkedIn",
-    HREF: "https://www.linkedin.com/in/trevortylerlee",
-  },
+    NAME: "Instagram",
+    HREF: "https://www.instagram.com/newsniper_ybi",
+  }
 ];

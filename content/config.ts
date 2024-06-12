@@ -32,4 +32,4 @@ const articles = defineCollection({
   }),
 });
 
-export const collections = { blog, project };
+export const collections = { blog, project, articles };
