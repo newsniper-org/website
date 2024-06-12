@@ -6,4 +6,4 @@ project:
     - "content/**/**/*.astro"
     - "content/**/**/*.jpeg"
 
-format: astro-md
+format: astro-mdx-md

@@ -31,5 +31,14 @@
   },
   "content/blog/03-projects-collection/index.qmd": {
     "index.mdx": "6d4cb3a5"
+  },
+  "content/article/1.qmd": {
+    "1.mdx": "a58e3a85"
+  },
+  "content/series/example1/index.qmd": {
+    "index.mdx": "25539de6"
+  },
+  "content/banner/example1/index.qmd": {
+    "index.mdx": "d4ab4bf7"
   }
 }
