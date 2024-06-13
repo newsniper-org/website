@@ -10,7 +10,7 @@ contributes:
         - "content/**/**/*.qmd"
       preview:
         serve:
-          cmd: "astro dev --root astro --port {port} --host {host}"
+          cmd: "cd astro && npm run astro dev --port {port} --host {host}"
           ready: "Web Server is available at"
     format: astro-mdx
   formats:

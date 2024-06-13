@@ -25,4 +25,11 @@ astro/.DS_Store
 # jetbrains setting folder
 astro/.idea/
 
+# netlify-specific folder
+astro/.netlify
+
+# prebuilt contents
+astro/src/content
+
+
 /.quarto/
