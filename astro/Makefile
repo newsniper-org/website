@@ -31,4 +31,4 @@ build: .prebuild-lock
 dev: ./prebuild-lock
 	npm run dev
 
-netlify: clean prepare-tarball-quarto prepare-astro pre-build-all-local-quarto build
+netlify: prepare-tarball-quarto prepare-astro pre-build-all-local-quarto build
