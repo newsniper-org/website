@@ -28,7 +28,7 @@ pre-build-all-system-quarto:
 build: .prebuild-lock
 	npm run build
 
-dev: ./prebuild-lock
+dev: .prebuild-lock
 	npm run dev
 
 netlify: prepare-tarball-quarto prepare-astro pre-build-all-local-quarto build
