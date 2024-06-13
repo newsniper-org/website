@@ -1,10 +1,10 @@
 QUARTO_VERSION="1.5.45"
 
 clean:
-	rm -rd astro/src/content
-	rm -rd astro/dist
-	rm -rd astro/.astro
-	rm -rd astro/.netlify
+	rm -rd src/content
+	rm -rd dist
+	rm -rd .astro
+	rm -rd .netlify
 
 prepare-tarball-quarto:
 	wget "https://github.com/quarto-dev/quarto-cli/releases/download/v$(QUARTO_VERSION)/quarto-$(QUARTO_VERSION)-linux-amd64.tar.gz"
@@ -13,21 +13,23 @@ prepare-tarball-quarto:
 	mkdir ~/.local/bin
 	ln -s ~/opt/quarto-$(QUARTO_VERSION)/bin/quarto ~/.local/bin/quarto
 	~/.local/bin/quarto check
+	cd astro
 
 prepare-astro:
-	cd astro
 	npm install
-	cd ..
 
-pre-build-all: 
-	~/.local/bin/quarto render
+pre-build-all-local-quarto: prepare-tarball-quarto
+	~/.local/bin/quarto render ../
+	echo "render done" > .prebulid-lock
 
-build:
-	cd astro
+pre-build-all-system-quarto:
+	quarto render ../
+	echo "render done" > .prebulid-lock
+
+build: .prebuild-lock
 	npm run build
-	cd ..
 
-dev:
-	cd astro
+dev: ./prebuild-lock
 	npm run dev
-	cd ..
+
+netlify: clean prepare-tarball-quarto prepare-astro pre-build-all-local-quarto build

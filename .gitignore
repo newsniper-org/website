@@ -32,3 +32,6 @@ astro/.netlify
 astro/src/content
 
 /.quarto/
+
+astro/*.tar.gz
+astro/.prebulid-lock
