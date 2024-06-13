@@ -8,7 +8,7 @@ clean:
 
 prepare-deb-quarto:
 	wget "https://github.com/quarto-dev/quarto-cli/releases/download/v1.5.45/quarto-1.5.45-linux-amd64.deb"
-	dpkg -i "quarto-1.5.45-linux-amd64.deb"
+	sudo dpkg -i "quarto-1.5.45-linux-amd64.deb"
 
 prepare-astro:
 	cd astro
