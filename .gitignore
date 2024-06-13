@@ -31,5 +31,4 @@ astro/.netlify
 # prebuilt contents
 astro/src/content
 
-
-.quarto/
+/.quarto/
