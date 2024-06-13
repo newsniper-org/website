@@ -7,14 +7,12 @@ clean:
 	rm -rd astro/.netlify
 
 prepare-tarball-quarto:
-	wget "https://github.com/quarto-dev/quarto-cli/releases/download/v1.5.45/quarto-1.5.45-linux-amd64.tar.gz"
+	wget "https://github.com/quarto-dev/quarto-cli/releases/download/v$(QUARTO_VERSION)/quarto-$(QUARTO_VERSION)-linux-amd64.tar.gz"
 	mkdir ~/opt
-	tar -C ~/opt -xvzf quarto-1.5.45-linux-amd64.tar.gz
+	tar -C ~/opt -xvzf quarto-$(QUARTO_VERSION)-linux-amd64.tar.gz
 	mkdir ~/.local/bin
-	ln -s ~/opt/quarto-1.5.45/bin/quarto ~/.local/bin/quarto
-	( echo ""; echo 'export PATH=$PATH:~/.local/bin\n' ; echo "" ) >> ~/.profile
-	source ~/.profile
-	quarto check
+	ln -s ~/opt/quarto-$(QUARTO_VERSION)/bin/quarto ~/.local/bin/quarto
+	~/.local/bin/quarto check
 
 prepare-astro:
 	cd astro
@@ -22,7 +20,7 @@ prepare-astro:
 	cd ..
 
 pre-build-all: 
-	quarto render
+	~/.local/bin/quarto render
 
 build:
 	cd astro
