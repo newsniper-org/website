@@ -19,16 +19,14 @@ prepare-astro:
 
 pre-build-all-local-quarto: prepare-tarball-quarto
 	~/.local/bin/quarto render ../
-	echo "render done" > .prebulid-lock
 
 pre-build-all-system-quarto:
 	quarto render ../
-	echo "render done" > .prebulid-lock
 
-build: .prebuild-lock
+build:
 	npm run build
 
-dev: .prebuild-lock
+dev:
 	npm run dev
 
 netlify: prepare-astro pre-build-all-local-quarto build
