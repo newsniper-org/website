@@ -8,7 +8,7 @@ clean:
 
 prepare-tarball-quarto:
 	wget "https://github.com/quarto-dev/quarto-cli/releases/download/v1.5.45/quarto-1.5.45-linux-amd64.tar.gz"
-	mkdir -/opt
+	mkdir ~/opt
 	tar -C ~/opt -xvzf quarto-1.5.45-linux-amd64.tar.gz
 	mkdir ~/.local/bin
 	ln -s ~/opt/quarto-1.5.45/bin/quarto ~/.local/bin/quarto
