@@ -13,7 +13,6 @@ prepare-tarball-quarto:
 	mkdir ~/.local/bin
 	ln -s ~/opt/quarto-$(QUARTO_VERSION)/bin/quarto ~/.local/bin/quarto
 	~/.local/bin/quarto check
-	cd astro
 
 prepare-astro:
 	npm install
