@@ -1,5 +1,5 @@
 project:
-  type: astro
+  type: astro-mdx
   output-dir: "astro/src/"
   resources:
     - "content/config.ts"

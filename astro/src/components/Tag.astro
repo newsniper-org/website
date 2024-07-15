@@ -2,15 +2,17 @@
 
 import Link from "@components/Link.astro";
 interface Props {
-    type: "category" | "keyword"
+    type: "category" | "keyword" | "series"
     tag: string
+    tagTitle?: string
 }
 
-const {type, tag} = Astro.props;
+const {type, tag, tagTitle} = Astro.props;
+
 ---
 <Link href={`/${type}/${tag}`}>
-  <div class={`not-prose tag tag-${type}`}>
-      {tag}
+  <div class={`not-prose tag tag-${type}`} style="width: fit-content">
+      {tagTitle ?? tag}
   </div>
 </Link>
 
@@ -25,5 +27,9 @@ const {type, tag} = Astro.props;
 
     .tag-keyword {
       @apply border-green-800 bg-green-100 text-green-950 dark:border-green-200/20 dark:bg-green-950/20 dark:text-green-200;
+    }
+
+    .tag-series {
+      @apply border-purple-800 bg-purple-100 text-purple-950 dark:border-purple-200/20 dark:bg-purple-950/20 dark:text-purple-200
     }
 </style>

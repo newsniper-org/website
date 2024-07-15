@@ -26,6 +26,7 @@ type Props = CollectionEntry<"series">;
 const series = Astro.props;
 const { Content, headings } = await series.render();
 
+
 const BannerContent = (await (await getCollection("banner")).find((bnr) => bnr.slug == series.slug)?.render())?.Content
 
 const posts = (await getCollection("article"))
@@ -37,7 +38,7 @@ const posts = (await getCollection("article"))
 <Layout title={series.data.title} description={series.data.description}>
   <Container>
     <div class="animate">
-      <BackToPrevious href="/series">Back to series</BackToPrevious>
+      <BackToPrevious href="/series">Back to series index page</BackToPrevious>
     </div>
     <div class="animate my-10 space-y-1">
       <h1 class="text-3xl font-semibold text-black dark:text-white">
@@ -47,7 +48,6 @@ const posts = (await getCollection("article"))
     <div class="animate my-10 space-y-1">
       {BannerContent && <BannerContent />}
     </div>
-    <TableOfContents headings={headings} />
     <article class="animate">
       <Content />
     </article>
