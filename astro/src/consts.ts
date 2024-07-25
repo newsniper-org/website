@@ -10,7 +10,7 @@ export const SITE: Site = {
 
 export const HOME: Metadata = {
   TITLE: "NEWSNIPER 메인 페이지",
-  DESCRIPTION: "Astro Micro is an accessible theme for Astro.",
+  DESCRIPTION: "NEWSNIPER 메인 사이트의 인덱스 페이지입니다.",
 };
 
 export const ARTICLES: Metadata = {
