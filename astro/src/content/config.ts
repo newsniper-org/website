@@ -8,7 +8,7 @@ const article = defineCollection({
     title: z.string(),
     description: z.string(),
     date: z.coerce.date(),
-    draft: z.boolean().optional(),
+    draft: z.boolean().optional().default(true),
     categories: z.array(z.string()).default([]),
     keywords: z.array(z.string()).default([]),
     series: z.string().optional()
