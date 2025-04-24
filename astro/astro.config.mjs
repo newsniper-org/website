@@ -15,8 +15,9 @@ export default defineConfig({
       theme: "css-variables"
     }
   },
-  output: "hybrid",
+  output: "server",
   adapter: netlify({
+    edgeMiddleware: true,
     cacheOnDemandPages: true,
   }),
 });

@@ -26,10 +26,11 @@ astro/.DS_Store
 astro/.idea/
 
 # netlify-specific folder
+.netlify
 astro/.netlify
 
 # prebuilt contents
-astro/src/content
+#astro/src/content
 
 /.quarto/
 
