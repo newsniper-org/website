@@ -17,6 +17,10 @@ prepare-tarball-quarto:
 prepare-astro:
 	npm install
 
+npm-fix: prepare-astro
+	npm uninstall @netlify/functions
+	npm install @netlify/functions@3.0.4
+
 pre-build-all-local-quarto: prepare-tarball-quarto
 	~/.local/bin/quarto render ../
 
@@ -29,4 +33,4 @@ build:
 dev:
 	npm run dev
 
-netlify: prepare-astro build
+netlify: npm-fix build
