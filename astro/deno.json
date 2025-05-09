@@ -27,12 +27,12 @@
     },
     "nodeModulesDir": "auto",
     "tasks": {
-        "dev": "astro db push --remote && astro dev --remote",
-        "dev:soft": "astro dev --remote",
-        "start": "astro dev --remote",
-        "check-build": "astro check && astro build --remote",
-        "build": "astro build --remote",
-        "db:push": "astro db push --remote",
+        "dev": "deno run -A astro db push --remote && deno run -A astro dev --remote",
+        "dev:soft": "deno run -A astro dev --remote",
+        "start": "deno run -A astro dev --remote",
+        "check-build": "deno run -A astro check && deno run -A astro build --remote",
+        "build": "deno run -A astro build --remote",
+        "db:push": "deno run -A astro db push --remote",
         "astro": "deno run -A astro"
     }
 }
