@@ -6,10 +6,13 @@ import pagefind from "astro-pagefind";
 
 import netlify from "@astrojs/netlify";
 
+import db from "@astrojs/db";
+import studiocms from "studiocms";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://www.newsniper.org/",
-  integrations: [tailwind(), sitemap(), mdx(), pagefind()],
+  integrations: [db(), studiocms(), tailwind(), sitemap(), mdx(), pagefind()],
   markdown: {
     shikiConfig: {
       theme: "css-variables"

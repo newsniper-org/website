@@ -28,7 +28,7 @@ pre-build-all-system-quarto:
 	quarto render ../
 
 build:
-	npm run build
+	npm run check-build
 
 dev:
 	npm run dev
