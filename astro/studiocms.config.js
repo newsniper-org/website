@@ -6,12 +6,13 @@ export default defineStudioCMSConfig({
     htmlDefaultLanguage: "ko",
   },
   dashboardConfig: {
+    inject404Route: false,
     dashboardEnabled: true,
     AuthConfig: {
       enabled: true,
       providers: {
         auth0: true,
-        usernameAndPassword: false
+        usernameAndPassword: true
       }
     }
   }

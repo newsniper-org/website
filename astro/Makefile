@@ -33,4 +33,4 @@ build:
 dev:
 	npm run dev
 
-netlify: npm-fix build
+netlify: prepare-astro build
