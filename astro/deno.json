@@ -9,7 +9,7 @@
         "@astrojs/sitemap": "https://esm.sh/@astrojs/sitemap@^3.3.1",
         "@deno/vite-plugin": "https://esm.sh/@deno/vite-plugin@^1.0.4",
         "@netlify/functions": "https://esm.sh/@netlify/functions@^3.1.5",
-        "@tailwindcss/vite": "https://esm.sh/@tailwindcss/vite@^4.1.5?alias=@tailwindcss/oxide:npm:@tailwindcss/oxide",
+        "@tailwindcss/vite": "npm:@tailwindcss/vite@^4.1.5",
         "astro": "https://esm.sh/astro@^5.7.12",
         "astro-pagefind": "https://esm.sh/astro-pagefind@^1.8.3",
         "clsx": "https://esm.sh/clsx@^2.1.1",
