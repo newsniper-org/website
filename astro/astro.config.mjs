@@ -8,6 +8,7 @@ import netlify from "@astrojs/netlify";
 
 import db from "@astrojs/db";
 import studiocms from "studiocms";
+import deno from "@deno/vite-plugin"
 import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
@@ -27,6 +28,6 @@ export default defineConfig({
     imageCDN: false
   }),
   vite: {
-    plugins: [tailwindcss(),]
+    plugins: [deno(), tailwindcss(),]
   }
 });
