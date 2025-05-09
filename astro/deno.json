@@ -10,7 +10,7 @@
         "@deno/vite-plugin": "https://esm.sh/@deno/vite-plugin@^1.0.4",
         "@netlify/functions": "https://esm.sh/@netlify/functions@^3.1.5",
         "@tailwindcss/vite": "npm:@tailwindcss/vite@^4.1.5",
-        "astro": "npm:astro@^5.7.12",
+        "astro": "https://esm.sh/astro@^5.7.12",
         "astro-pagefind": "https://esm.sh/astro-pagefind@^1.8.3",
         "clsx": "https://esm.sh/clsx@^2.1.1",
         "studiocms": "https://esm.sh/studiocms@^0.1.0-beta.17",
