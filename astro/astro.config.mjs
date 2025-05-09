@@ -12,7 +12,7 @@ import studiocms from "studiocms";
 // https://astro.build/config
 export default defineConfig({
   site: "https://www.newsniper.org/",
-  integrations: [db(), studiocms(), tailwind(), sitemap(), mdx(), pagefind()],
+  integrations: [tailwind(), sitemap(), mdx(), pagefind(), db(), studiocms()],
   markdown: {
     shikiConfig: {
       theme: "css-variables"
@@ -20,7 +20,9 @@ export default defineConfig({
   },
   output: "server",
   adapter: netlify({
-    edgeMiddleware: false,
+    edgeMiddleware: true,
     cacheOnDemandPages: true,
+    excludeFiles: ["./node_modules/**"],
+    imageCDN: false
   })
 });
