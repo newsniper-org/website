@@ -27,10 +27,15 @@
     },
     "nodeModulesDir": "auto",
     "tasks": {
-        "dev": "deno task db:push && deno task dev:soft",
+        "dev": {
+            "dependencies": ["db:push", "dev:soft"]
+        },
         "dev:soft": "deno task astro dev --remote",
         "start": "deno task astro dev --remote",
-        "check-build": "deno task astro check && deno task build",
+        "check": "deno task astro check",
+        "check-build": {
+            "dependencies": ["check", "build"]
+        },
         "build": "deno task astro build --remote",
         "db:push": "deno task astro db push --remote",
         "astro": "deno run -A astro"
