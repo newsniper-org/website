@@ -19,7 +19,7 @@
         "prettier-plugin-astro": "npm:prettier-plugin-astro@^0.14.1",
         "prettier-plugin-organize-imports": "npm:prettier-plugin-organize-imports@^4.1.0",
         "prettier-plugin-tailwindcss": "npm:prettier-plugin-tailwindcss@^0.6.11",
-        "studiocms": "https://esm.sh/studiocms@^0.1.0-beta.17",
+        "studiocms": "npm:studiocms@^0.1.0-beta.17",
         "tailwind-merge": "https://esm.sh/tailwind-merge@^3.2.0",
         "tailwindcss": "https://esm.sh/tailwindcss@^4.1.5",
         "typescript": "https://esm.sh/typescript@^5.8.3",
