@@ -23,4 +23,9 @@ export default defineConfig({
     edgeMiddleware: true,
     cacheOnDemandPages: true,
   }),
+  vite: {
+    esbuild: {
+      platform: "node"
+    },
+  },
 });
