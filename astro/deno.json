@@ -1,0 +1,37 @@
+{
+    "imports": {
+        "@astrojs/check": "npm:@astrojs/check@^0.7.0",
+        "@astrojs/db": "npm:@astrojs/db@^0.14.13",
+        "@astrojs/markdown-remark": "npm:@astrojs/markdown-remark@^6.3.1",
+        "@astrojs/mdx": "npm:@astrojs/mdx@^4.2.6",
+        "@astrojs/netlify": "npm:@astrojs/netlify@^6.3.2",
+        "@astrojs/rss": "npm:@astrojs/rss@^4.0.11",
+        "@astrojs/sitemap": "npm:@astrojs/sitemap@^3.3.1",
+        "@astrojs/tailwind": "npm:@astrojs/tailwind@^5.1.5",
+        "@netlify/functions": "npm:@netlify/functions@^3.1.5",
+        "astro": "npm:astro@^5.7.12",
+        "astro-pagefind": "npm:astro-pagefind@^1.8.3",
+        "clsx": "npm:clsx@^2.1.1",
+        "studiocms": "npm:studiocms@^0.1.0-beta.17",
+        "tailwind-merge": "npm:tailwind-merge@^2.6.0",
+        "tailwindcss": "npm:tailwindcss@^3.4.17",
+        "typescript": "npm:typescript@^5.8.3",
+        "vite": "npm:vite@^6.3.5",
+        "@tailwindcss/typography": "npm:@tailwindcss/typography@^0.5.16",
+        "pagefind": "npm:pagefind@^1.3.0",
+        "prettier": "npm:prettier@^3.5.3",
+        "prettier-plugin-astro": "npm:prettier-plugin-astro@^0.13.0",
+        "prettier-plugin-organize-imports": "npm:prettier-plugin-organize-imports@^3.2.4",
+        "prettier-plugin-tailwindcss": "npm:prettier-plugin-tailwindcss@^0.5.14"
+    },
+    "nodeModulesDir": "auto",
+    "tasks": {
+        "dev": "astro db push --remote && astro dev --remote",
+        "dev:soft": "astro dev --remote",
+        "start": "astro dev --remote",
+        "check-build": "astro check && astro build --remote",
+        "build": "astro build --remote",
+        "db:push": "astro db push --remote",
+        "astro": "astro"
+    }
+}
