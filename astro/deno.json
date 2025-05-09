@@ -33,6 +33,6 @@
         "check-build": "astro check && astro build --remote",
         "build": "astro build --remote",
         "db:push": "astro db push --remote",
-        "astro": "astro"
+        "astro": "deno run -A astro"
     }
 }
