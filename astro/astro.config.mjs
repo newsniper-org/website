@@ -8,6 +8,7 @@ import netlify from "@astrojs/netlify";
 
 import db from "@astrojs/db";
 import studiocms from "studiocms";
+import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
@@ -24,5 +25,8 @@ export default defineConfig({
     cacheOnDemandPages: true,
     excludeFiles: ["./node_modules/**"],
     imageCDN: false
-  })
+  }),
+  vite: {
+    plugins: [tailwindcss(),]
+  }
 });
