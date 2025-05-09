@@ -24,7 +24,7 @@
     "astro": "^5.7.12",
     "astro-pagefind": "^1.8.3",
     "clsx": "^2.1.1",
-    "studiocms": "^0.1.0-beta.16",
+    "studiocms": "^0.1.0-beta.17",
     "tailwind-merge": "^2.6.0",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.8.3",
