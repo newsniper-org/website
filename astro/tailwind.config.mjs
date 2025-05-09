@@ -10,6 +10,5 @@ export default {
         mono: ["Geist Mono", ...defaultTheme.fontFamily.mono],
       },
     },
-  },
-  plugins: [require("@tailwindcss/typography")],
+  }
 };

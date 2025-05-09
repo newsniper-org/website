@@ -1,4 +1,4 @@
-import tailwind from "@astrojs/tailwind";
+// import tailwind from "@astrojs/tailwind";
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
@@ -12,7 +12,7 @@ import studiocms from "studiocms";
 // https://astro.build/config
 export default defineConfig({
   site: "https://www.newsniper.org/",
-  integrations: [tailwind(), sitemap(), mdx(), pagefind(), db(), studiocms()],
+  integrations: [sitemap(), mdx(), pagefind(), db(), studiocms()],
   markdown: {
     shikiConfig: {
       theme: "css-variables"
