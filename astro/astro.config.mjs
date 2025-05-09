@@ -22,14 +22,5 @@ export default defineConfig({
   adapter: netlify({
     edgeMiddleware: false,
     cacheOnDemandPages: true,
-  }),
-  vite: {
-    build: {
-      rollupOptions: {
-        input: {
-          exclude: ["node_moudles/**"]
-        }
-      }
-    }
-  }
+  })
 });
