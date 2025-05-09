@@ -38,6 +38,6 @@
         },
         "build": "deno task astro build --remote",
         "db:push": "deno task astro db push --remote",
-        "astro": "npm run astro"
+        "astro": "npx astro"
     }
 }
