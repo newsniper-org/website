@@ -1,5 +1,10 @@
 ---
 import Search from "astro-pagefind/components/Search";
+
+export const prerender = false;
+
+const q = Astro.url.searchParams.get("q") ?? undefined;
+
 ---
 
 <div
@@ -19,6 +24,7 @@ import Search from "astro-pagefind/components/Search";
         excerptLength: 15,
         resetStyles: false,
       }}
+      query={q}
     />
     <div class="mr-2 pb-1 pt-4 text-right text-xs dark:prose-invert">
       Press <span class="prose text-xs dark:prose-invert"

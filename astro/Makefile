@@ -29,4 +29,4 @@ build:
 dev:
 	npm run dev
 
-netlify: prepare-astro pre-build-all-local-quarto build
+netlify: prepare-astro build

@@ -1,5 +1,5 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry, getCollection, render } from "astro:content";
 import Layout from "@layouts/Layout.astro";
 import Container from "@components/Container.astro";
 import FormattedDate from "@components/FormattedDate.astro";
@@ -11,23 +11,18 @@ import Talkyard from "@components/Talkyard.astro";
 import Tag from "@components/Tag.astro";
 import { getEntry } from "astro:content";
 
-export async function getStaticPaths() {
-  const posts = (await getCollection("article"))
-    .filter((post) => !post.data.draft)
-    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: post,
-  }));
+const {slug} = Astro.params
+
+if (!slug) {
+  return Astro.redirect("/article")
 }
-type Props = CollectionEntry<"article">;
 
 const posts = await getCollection("article");
 
 function getNextPost() {
   let postIndex;
   for (const post of posts) {
-    if (post.slug === Astro.params.slug) {
+    if (post.id === Astro.params.slug) {
       postIndex = posts.indexOf(post);
       return posts[postIndex + 1];
     }
@@ -37,7 +32,7 @@ function getNextPost() {
 function getPrevPost() {
   let postIndex;
   for (const post of posts) {
-    if (post.slug === Astro.params.slug) {
+    if (post.id === Astro.params.slug) {
       postIndex = posts.indexOf(post);
       return posts[postIndex - 1];
     }
@@ -47,10 +42,14 @@ function getPrevPost() {
 const nextPost = getNextPost();
 const prevPost = getPrevPost();
 
-const post = Astro.props;
+const post = await getEntry('article',slug);
+
+if (!post) {
+  return Astro.redirect("/404")
+}
 
 const series = await maybe(async (ser) => await getEntry("series", ser), post.data.series)
-const { Content, headings } = await post.render();
+const { Content, headings } = await render(post);
 ---
 
 <Layout title={post.data.title} description={post.data.description}>
@@ -64,9 +63,9 @@ const { Content, headings } = await post.render();
           <FormattedDate date={post.data.date} />
         </div>
         &bull;
-        <div class="font-base text-sm">
+        {post.body && <div class="font-base text-sm">
           {readingTime(post.body)}
-        </div>
+        </div>}
       </div>
       <br/>
       <h1 class="animate text-3xl font-bold text-black dark:text-white">
@@ -79,7 +78,7 @@ const { Content, headings } = await post.render();
       <br/>
       {series !== undefined && <div class="animate" style="display:flexbox">
         <p class="font-semibold text-black dark:text-white">Series</p>
-        <Tag type="series" tag={series.slug} tagTitle={series?.data.title} />
+        <Tag type="series" tag={series.id} tagTitle={series?.data.title} />
       </div>}
       {post.data.categories.length > 0 && <div style="display: flex">
         <p class="font-semibold text-black dark:text-white">{post.data.categories.length > 1 ? "Categories" : "Category"}</p>
@@ -97,7 +96,7 @@ const { Content, headings } = await post.render();
         <PostNavigation prevPost={prevPost} nextPost={nextPost} />
       </div>
       <div class="mt-24">
-        <Talkyard discussionId={`article/${post.slug}`}/>
+        <Talkyard discussionId={`article/${post.id}`}/>
       </div>
     </article>
   </Container>

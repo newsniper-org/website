@@ -1,5 +1,5 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry, getCollection, render, getEntry } from "astro:content";
 import Layout from "@layouts/Layout.astro";
 import Container from "@components/Container.astro";
 import BackToPrevious from "@components/BackToPrevious.astro";
@@ -8,29 +8,25 @@ import TableOfContents from "@components/TableOfContents.astro";
 import ArrowCard from "@components/ArrowCard.astro"
 import Talkyard from "@components/Talkyard.astro";
 
+const {slug} = Astro.params
 
-export async function getStaticPaths() {
-  const series = (await getCollection("series"))
-    .filter((post) => !post.data.draft)
-    .sort((a, b) => b.data.title.localeCompare(a.data.title));
-  return series.map((eachSeries) => ({
-        params: { slug: eachSeries.slug },
-        props: {
-          ...eachSeries
-        }
-      })
-  );
+if (!slug) {
+  return Astro.redirect("/series")
 }
-type Props = CollectionEntry<"series">;
 
-const series = Astro.props;
-const { Content, headings } = await series.render();
+const series = await getEntry('series',slug)
+
+if(!series) {
+  return Astro.redirect("/404")
+}
+
+const { Content, headings } = await render(series);
 
 
-const BannerContent = (await (await getCollection("banner")).find((bnr) => bnr.slug == series.slug)?.render())?.Content
+const BannerContent = (await (await getCollection("banner")).find((bnr) => bnr.slug == series.id)?.render())?.Content
 
 const posts = (await getCollection("article"))
-  .filter((post) => (!post.data.draft) && (post.data.series !== undefined) && (post.data.series == series.slug))
+  .filter((post) => (!post.data.draft) && (post.data.series !== undefined) && (post.data.series === series.id))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 ---
@@ -68,7 +64,7 @@ const posts = (await getCollection("article"))
       </div>
     </div>}
     <div class="mt-24">
-      <Talkyard discussionId={`series/${series.slug}`}/>
+      <Talkyard discussionId={`series/${series.id}`}/>
     </div>
   </Container>
 </Layout>

@@ -39,22 +39,22 @@ const latestUpdateDates = new Map(getLatestUpdateDates())
 const series = (await getCollection("series"))
   .filter((eachSeries) => !eachSeries.data.draft)
   .sort((a,b) => {
-    const a_date = latestUpdateDates.get(a.slug)
-    const b_date = latestUpdateDates.get(b.slug)
+    const a_date = latestUpdateDates.get(a.id)
+    const b_date = latestUpdateDates.get(b.id)
     if(b_date) {
       if(a_date) {
         return b_date.valueOf() - a_date.valueOf()
       } else {
         return 1;
       }
-    } else if(latestUpdateDates.get(a.slug)) {
+    } else if(latestUpdateDates.get(a.id)) {
       return -1;
     } else {
       return 0;
     }
   })
   .slice(0, SITE.NUM_PROJECTS_ON_HOMEPAGE)
-  .filter((eachSeries) => latestUpdateDates.has(eachSeries.slug));
+  .filter((eachSeries) => latestUpdateDates.has(eachSeries.id));
 ---
 
 <Layout title={HOME.TITLE} description={HOME.DESCRIPTION}>

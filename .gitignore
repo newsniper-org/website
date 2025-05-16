@@ -26,12 +26,18 @@ astro/.DS_Store
 astro/.idea/
 
 # netlify-specific folder
+.netlify
 astro/.netlify
 
 # prebuilt contents
-astro/src/content
+#astro/src/content
 
 /.quarto/
 
 astro/*.tar.gz
 astro/.prebulid-lock
+
+astro/wrangler.toml
+astro/wrangler.json
+astro/wrangler.jsonc
+astro/worker-configuration.d.ts
