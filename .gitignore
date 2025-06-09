@@ -36,3 +36,8 @@ astro/.netlify
 
 astro/*.tar.gz
 astro/.prebulid-lock
+
+astro/wrangler.toml
+astro/wrangler.json
+astro/wrangler.jsonc
+astro/worker-configuration.d.ts
