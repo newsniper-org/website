@@ -10,6 +10,9 @@ import TableOfContents from "@components/TableOfContents.astro";
 import Talkyard from "@components/Talkyard.astro";
 import Tag from "@components/Tag.astro";
 import { getEntry } from "astro:content";
+import { generateHTML } from "@tiptap/html";
+
+import { serializers, injectDataIntoContent } from "directus-extension-flexible-editor/content"
 
 const {slug} = Astro.params
 
@@ -48,8 +51,10 @@ if (!post) {
   return Astro.redirect("/404")
 }
 
-const series = await maybe(async (ser) => await getEntry("series", ser), post.data.series)
-const { Content, headings } = await render(post);
+const series = post.data.series
+
+const content = generateHTML(post.data.content,serializers)
+
 ---
 
 <Layout title={post.data.title} description={post.data.description}>
@@ -63,9 +68,9 @@ const { Content, headings } = await render(post);
           <FormattedDate date={post.data.date} />
         </div>
         &bull;
-        {post.body && <div class="font-base text-sm">
-          {readingTime(post.body)}
-        </div>}
+        <div class="font-base text-sm">
+          {readingTime(content)}
+        </div>
       </div>
       <br/>
       <h1 class="animate text-3xl font-bold text-black dark:text-white">
@@ -76,9 +81,9 @@ const { Content, headings } = await render(post);
         {post.data.description}
       </h2>
       <br/>
-      {series !== undefined && <div class="animate" style="display:flexbox">
+      {series && <div class="animate" style="display:flexbox">
         <p class="font-semibold text-black dark:text-white">Series</p>
-        <Tag type="series" tag={series.id} tagTitle={series?.data.title} />
+        <Tag type="series" tag={series.id} tagTitle={series.title} />
       </div>}
       {post.data.categories.length > 0 && <div style="display: flex">
         <p class="font-semibold text-black dark:text-white">{post.data.categories.length > 1 ? "Categories" : "Category"}</p>
@@ -91,7 +96,10 @@ const { Content, headings } = await render(post);
     </div>
     
     <article class="animate">
-      <Content />
+      <div set:html={content} />
+      <div>
+        
+      </div>
       <div class="mt-24">
         <PostNavigation prevPost={prevPost} nextPost={nextPost} />
       </div>

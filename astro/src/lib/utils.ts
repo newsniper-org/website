@@ -57,3 +57,7 @@ export class MatchMapper<T, R> {
   }
 
 }
+
+export function getPageURL(siteURL: URL, ...dirs: string[]) {
+  return new URL(dirs.reduce((out,curr) => out + `/${curr}`,""),siteURL)  
+}

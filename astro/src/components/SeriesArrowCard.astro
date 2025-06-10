@@ -12,9 +12,7 @@ const { entry, forIframe = false  } = Astro.props as {
   forIframe: boolean
 };
 
-const BannerContent = (await (await getCollection("banner")).find((bnr) => bnr.slug == entry.id)?.render())?.Content
-
-const articles_count = (await getCollection("article")).filter((article) => (article.data.series && article.data.series == entry.id)).length
+const articles_count = (await getCollection("article")).filter((article) => (article.data.series && article.data.series.id == entry.id)).length
 
 const plurality = new MatchMapper((v: number) => `${v} posts`)
   .addGuard((v) => v <= 0, (v) => "No post yet")
@@ -39,9 +37,9 @@ const plurality = new MatchMapper((v: number) => `${v} posts`)
         {plurality}
       </div>
     </div>
-    {entry.data.statusEnabled ? (BannerContent && <div>
-      <BannerContent/>
-    </div>) : <></>}
+  </div>
+  <div>
+    {entry.data.statusEnabled && <slot/>}
   </div>
   <svg
     xmlns="http://www.w3.org/2000/svg"

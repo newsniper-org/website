@@ -1,8 +1,8 @@
 ---
 const { prevPost, nextPost } = Astro.props;
 
-const prevSlug = prevPost?.slug || prevPost?.id;
-const nextSlug = nextPost?.slug || nextPost?.id;
+const prevSlug = prevPost?.id;
+const nextSlug = nextPost?.id;
 ---
 
 <div class="grid grid-cols-2 gap-1.5 sm:gap-3">

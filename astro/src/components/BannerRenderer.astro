@@ -1,0 +1,18 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  slug: string
+  banner: CollectionEntry<"banner">['data'] | null
+}
+
+const BANNER_RENDERERS: Record<string,(_props: CollectionEntry<"banner">['data']) => any> = {}
+
+const {slug, banner: props} = Astro.props
+
+const Renderer = (slug in BANNER_RENDERERS) ? BANNER_RENDERERS[slug] : undefined
+
+---
+<>
+    {Renderer && props ? <Renderer {...props} /> : <></>}
+</>

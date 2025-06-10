@@ -1,0 +1,32 @@
+---
+import { type CollectionEntry, getCollection, getEntry } from "astro:content";
+import BannerLayout from "@layouts/BannerLayout.astro";
+import Container from "@components/Container.astro";
+import Tag from "@components/Tag.astro";
+
+import { maybe } from "@lib/utils"
+import SeriesArrowCard from "@components/SeriesArrowCard.astro";
+import BannerRenderer from "@components/BannerRenderer.astro";
+
+const {slug} = Astro.params
+
+if (!slug) {
+  return Astro.redirect("/404")
+}
+
+const series = await getEntry('series',slug)
+
+if(!series) {
+  return Astro.redirect("/404")
+}
+
+const banner = (await getEntry('banner',slug))?.data ?? null
+
+
+
+---
+{series ? <BannerLayout title={series.data.title} description={series.data.description}>
+  <SeriesArrowCard entry={series} forIframe>
+    <BannerRenderer slug={slug} banner={banner}/>
+  </SeriesArrowCard>
+</BannerLayout> : <p>Banner Not Found</p>}

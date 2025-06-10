@@ -1,13 +1,14 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import Layout from "@layouts/Layout.astro";
 import Container from "@components/Container.astro";
 import SeriesArrowCard from "@components/SeriesArrowCard.astro";
 import { SERIES } from "@consts";
+import BannerRenderer from "@components/BannerRenderer.astro";
 
-const series = (await getCollection("series"))
-  .filter((eachSeries) => !eachSeries.data.draft)
-  .sort((a, b) => b.data.title.localeCompare(a.data.title));
+const series = await Promise.all((await getCollection("series"))
+  .sort((a, b) => b.data.title.localeCompare(a.data.title))
+  .map(async (entry) => ({entry, banner: (await getEntry('banner',entry.id))?.data ?? null})))
 ---
 
 <Layout title={SERIES.TITLE} description={SERIES.DESCRIPTION}>
@@ -20,7 +21,9 @@ const series = (await getCollection("series"))
         {
           series.map((eachSeries) => (
             <li>
-              <SeriesArrowCard entry={eachSeries} />
+              <SeriesArrowCard entry={eachSeries.entry}>
+                  <BannerRenderer slug={eachSeries.entry.id} banner={eachSeries.banner}/>
+                </SeriesArrowCard>
             </li>
           ))
         }
